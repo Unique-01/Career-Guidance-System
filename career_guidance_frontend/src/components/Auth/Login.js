@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AUTH_URL } from "../../services/api";
+import { API_BASE_URL } from "../../services/api";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -12,10 +12,13 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${AUTH_URL}/jwt/create`, {
-                username,
-                password,
-            });
+            const response = await axios.post(
+                `${API_BASE_URL}auth/jwt/create`,
+                {
+                    username,
+                    password,
+                }
+            );
             localStorage.setItem("accessToken", response.data.access);
             localStorage.setItem("refreshToken", response.data.refresh);
             navigate("/dashboard");
@@ -27,19 +30,23 @@ const Login = () => {
                 let errorMsg = "";
 
                 // Handle different types of error responses
-        if (typeof errorData === 'object' && !Array.isArray(errorData)) {
-            for (const key in errorData) {
-              if (errorData.hasOwnProperty(key)) {
-                if (Array.isArray(errorData[key])) {
-                  errorMsg += `${errorData[key].join(' ')} `;
+                if (
+                    typeof errorData === "object" &&
+                    !Array.isArray(errorData)
+                ) {
+                    for (const key in errorData) {
+                        if (errorData.hasOwnProperty(key)) {
+                            if (Array.isArray(errorData[key])) {
+                                errorMsg += `${errorData[key].join(" ")} `;
+                            } else {
+                                errorMsg += `${errorData[key]} `;
+                            }
+                        }
+                    }
                 } else {
-                  errorMsg += `${errorData[key]} `;
+                    errorMsg =
+                        errorData.detail || "An error occurred during login";
                 }
-              }
-            }
-          } else {
-            errorMsg = errorData.detail || 'An error occurred during login';
-          }
                 setError(
                     errorMsg.trim() || "An error occurred during registration"
                 );
