@@ -18,6 +18,12 @@ const Layout = () => {
                     <li>
                         <Link to="/register">Register</Link>
                     </li>
+                    <li>
+                        <Link to="/careers">Career Lists</Link>
+                    </li>
+                    <li>
+                        <Link to="careers/new">Add Career</Link>
+                    </li>
                 </ul>
             </nav>
             <Outlet />

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'authentication',
     'corsheaders',
     'drf_spectacular',
+    'career',
     
 ]
 

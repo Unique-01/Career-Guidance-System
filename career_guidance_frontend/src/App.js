@@ -6,6 +6,9 @@ import Register from "./components/Auth/Register";
 import Layout from "./pages/Layout";
 import Profile from "./pages/Profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import CareerForm from "./pages/CareerForm";
+import CareerList from "./pages/CareerList";
+import NoPage from "./pages/NoPage";
 
 const App = () => {
   return (
@@ -17,6 +20,11 @@ const App = () => {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="update-profile" element={<Profile/>}/>
+          <Route path="careers" element={<CareerList/>}/>
+          {/* <Route path="careers/:id" element={<CareerDetail/>}/> */}
+          <Route path="careers/new" element={<CareerForm/>}/>
+          <Route path="careers/edit/:id" element={<CareerForm/>}/>
+          <Route path="*" element={<NoPage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
