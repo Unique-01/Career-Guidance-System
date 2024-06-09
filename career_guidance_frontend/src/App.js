@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CareerForm from "./pages/CareerForm";
 import CareerList from "./pages/CareerList";
+import CareerDetail from "./pages/CareerDetail";
 import NoPage from "./pages/NoPage";
 
 const App = () => {
@@ -21,9 +22,9 @@ const App = () => {
           <Route path="register" element={<Register />} />
           <Route path="update-profile" element={<Profile/>}/>
           <Route path="careers" element={<CareerList/>}/>
-          {/* <Route path="careers/:id" element={<CareerDetail/>}/> */}
+          <Route path="careers/:careerId" element={<CareerDetail/>}/>
           <Route path="careers/new" element={<CareerForm/>}/>
-          <Route path="careers/edit/:id" element={<CareerForm/>}/>
+          <Route path="careers/edit/:careerId" element={<CareerForm/>}/>
           <Route path="*" element={<NoPage/>}/>
         </Route>
       </Routes>

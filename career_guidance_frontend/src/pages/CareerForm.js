@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import api from "../services/api"; // Adjust the import path as necessary
+import { useParams } from "react-router-dom";
 
-const CareerForm = ({ careerId }) => {
+const CareerForm = () => {
+    const {careerId} = useParams()
     const [careerData, setCareerData] = useState({
         title: "",
         description: "",
@@ -49,7 +51,7 @@ const CareerForm = ({ careerId }) => {
         const url = careerId ? `/careers/${careerId}/` : "/careers/";
 
         try {
-            const response = await api[method](url, careerData);
+            await api[method](url, careerData);
             alert("Career saved successfully");
         } catch (error) {
             console.error("Failed to save career", error);
