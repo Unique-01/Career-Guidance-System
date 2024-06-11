@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import api from "../services/api";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CareerDetail = () => {
-    const {careerId} = useParams()
+    const { careerId } = useParams();
     const [career, setCareer] = useState({
         title: "",
         description: "",
@@ -11,9 +11,10 @@ const CareerDetail = () => {
         job_outlook: "",
         pathways: "",
     });
+    const [userRole, setUserRole] = useState(null);
+
     useEffect(() => {
         const fetchCareer = async () => {
-            console.log('careerId',careerId)
             try {
                 const response = await api.get(`/careers/${careerId}/`);
                 setCareer(response.data);
@@ -22,6 +23,15 @@ const CareerDetail = () => {
             }
         };
         fetchCareer();
+        const fetchUserRole = async () => {
+            try {
+                const response = await api.get("/auth/users/me/");
+                setUserRole(response.data.role);
+            } catch (error) {
+                console.error("Unable to fetch user role", error);
+            }
+        };
+        fetchUserRole();
     }, [careerId]);
 
     return (
@@ -33,6 +43,12 @@ const CareerDetail = () => {
                 <p>{career.job_outlook}</p>
                 <p>{career.pathways}</p>
             </div>
+
+            {userRole === "admin" ? (
+                <Link to={`/careers/edit/${careerId}`}>Update Career</Link>
+            ) : (
+                ""
+            )}
         </>
     );
 };
